@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNet.Identity;
+@section footerJS{
+    <script src="~/Assets/client/js/controllers/shoppingCart.js"></script>
+}
+<div class="header">
+    <div class="top-header">
+        <div class="container">
+            <div class="top-header-left">
+                <ul class="support">
+                    <li><a href="#"><label> </label></a></li>
+                    <li><a href="#">Hỗ trợ<span class="live"> 24/7</span></a></li>
+                </ul>
+                <ul class="support">
+                    <li class="van"><a href="#"><label> </label></a></li>
+                    <li><a href="#">Miễn phí ship <span class="live">nội ô tỉnh Bình Dương</span></a></li>
+                </ul>
+                <ul class="support">
+                    <li><a href="#"><label> </label></a></li>
+                    <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                </ul>
+                <ul class="support">
+                    <li><a href="#"><label> </label></a></li>
+                    <li><a href="/lien-he">Liên hệ</a></li>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="top-header-right">
+                <div class="down-top">
+                    <select class="in-drop">
+                        <option value="VN" class="in-of">VN</option>
+                    </select>
+                </div>
+                <div class="down-top top-down">
+                    <select class="in-drop">
+                        <option value="VND" class="in-of">VNĐ</option>
+                    </select>
+                </div>
+                <!---->
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="bottom-header">
+        <div class="container">
+            <div class="header-bottom-left">
+                <div class="logo">
+                    <a href="/"><img src="/Assets/client/images/logo.png" alt="logo" style="width:120px" /></a>
+                </div>
+                <div class="search">
+                    <form method="get" action="/tim-kiem">
+                        <input type="text" id="txtKeyword" name="keyword" placeholder="Từ khóa">
+                        <input type="submit" value="Tìm kiếm" id="btnSearch">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="header-bottom-right row">
+                <div class="col-md-1"></div>
+                <div class="col-md-7">
+                    @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                    {
+                        if (Request.IsAuthenticated)
+                        {
+                            @Html.AntiForgeryToken()
+                            <ul class="login" style="width:100%">
+                                <li><a href="/tai-khoan"><span> </span>XIN CHÀO: @User.Identity.GetUserName().ToUpper()</a></li>|
+                                <li><a href="#" id="btnLogout">THOÁT</a></li>
+                            </ul>
+
+                        }
+                        else
+                        {
+                            <ul class="login" style="width:100%">
+                                <li><a href="/dang-nhap"><span> </span>ĐĂNG NHẬP</a></li> |
+                                <li><a href="/dang-ky">ĐĂNG KÝ</a></li>
+                            </ul>
+                        }
+                    }
+                </div>
+                <div class="cart col-md-3"><a href="/gio-hang"><span></span>GIỎ HÀNG</a></div>
+                <div class="col-md-1" style="left:-30px" id="cartShop"></div>
+                <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+                <script>
+                    $(function () {
+                        $.ajax({
+                            url: '/ShoppingCart/GetAll',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (res) {
+                                $('#cartShop').html('<sup>' + res.data.length + '</sup>');
+                            }
+                        });
+                    });
+                </script>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

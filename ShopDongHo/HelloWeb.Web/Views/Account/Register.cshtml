@@ -1,0 +1,48 @@
+﻿@model HelloWeb.Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+<div class="register">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+
+        if (ViewData["SuccessMsg"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <strong>Chúc mừng bạn! </strong> đã đăng ký thành công.
+                <br />Vui lòng click <a href="/dang-nhap">vào đây </a>để đăng nhập.
+            </div>
+        }
+        else
+        {
+            <div class="register-top-grid">
+                <h3>Thông tin cá nhân</h3>
+                <div class="mation">
+                    <span>Họ tên<label>*</label></span>
+                    @Html.TextBoxFor(model => model.FullName)
+                    <span>Email<label>*</label></span>
+                    @Html.TextBoxFor(model => model.Email)
+                    <span>Địa chỉ<label>*</label></span>
+                    @Html.TextBoxFor(model => model.Address)
+                    <span>Số điện thoại<label>*</label></span>
+                    @Html.TextBoxFor(model => model.PhoneNumber)
+
+                    <span>Tài khoản<label>*</label></span>
+                    @Html.TextBoxFor(model => model.UserName)
+                    <span>Mật khẩu<label>*</label></span>
+                    @Html.PasswordFor(model => model.Password)
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="register-but">
+                <input type="submit" value="Đăng ký">
+                <div class="clearfix"> </div>
+            </div>
+        }
+    }
+</div>

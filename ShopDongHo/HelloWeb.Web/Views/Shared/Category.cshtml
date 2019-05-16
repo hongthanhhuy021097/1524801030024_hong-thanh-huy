@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HelloWeb.Web.Models.ProductCategoryViewModel>
+<div class="sub-cate">
+    <div class="top-nav rsidebar span_1_of_left">
+        <h3 class="cate">Danh mục sản phẩm</h3>
+        <ul class="menu">
+            @foreach (var category in Model.Where(x => x.ParentID == null))
+            {
+                var url = "/" + category.Alias + "pc" + category.ID;
+                var childCategories = Model.Where(x => x.ParentID == category.ID);
+            <li>
+                <a href="@url">@category.Name @Html.Raw(childCategories.Count() > 0 ? "<img class=\"arrow-img\" src=\"/Assets/client/images/arrow1.png\" alt=\"\" style=\"float:right;margin:7%\"/>" : "")</a>
+                @if (childCategories.Count() > 0)
+                {
+                    <ul class="cute">
+                        @foreach (var childCategory in childCategories)
+                        {
+                            var childUrl = "/" + childCategory.Alias + "pc" + childCategory.ID;
+                            <li class="subitem3" ><a href="@childUrl" style="margin:0px;"><i class="fa fa-angle-right" style="float:left;margin:6%"></i>@childCategory.Name</a></li>
+                        }
+
+                    </ul>
+                }
+
+            </li>
+
+
+            }
+
+        </ul>
+    </div>
+    <div class="chain-grid menu-chain">
+        <a href="/ViewAll"><img class="img-responsive chain" src="/Assets/client/images/wat.jpg" alt="" /></a>
+        <div class="grid-chain-bottom chain-watch">
+            <span class="actual dolor-left-grid">1.600.000 ₫</span>
+            <span class="reducedfrom">2.580.000 ₫</span>
+            <h6><a href="/ViewAll">BABY-G BSA-B100-2ADR</a></h6>
+        </div>
+    </div>
+    <a class="view-all all-product" href="/ViewAll">Hiển thị toàn bộ sản phẩm<span> </span></a>
+</div>
